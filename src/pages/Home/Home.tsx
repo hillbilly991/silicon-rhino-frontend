@@ -1,14 +1,14 @@
 import {
-    Popup,
-    Map
+    MapContainer
 } from '../../components'
 
 function Home(props: any) {
 
     return (
         <>
-            <Popup />
-            <Map />
+        <main>
+            <MapContainer />
+        </main>
         </>
     )
 }

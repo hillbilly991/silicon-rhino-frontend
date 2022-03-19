@@ -78,7 +78,19 @@ nav img {
   width: 65px;
 }
 
-h1, h2, h3, h4, h5, p, span, li, a {
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+li,
+a {
   font-family: 'Lato', sans-serif;
+}
+
+#map * {
+  overflow: visible;
 }
 /*# sourceMappingURL=index.css.map */
