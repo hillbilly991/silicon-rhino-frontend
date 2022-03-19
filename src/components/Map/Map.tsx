@@ -28,7 +28,7 @@ const Map:FC<MapProps> = ({
                 ...options
             }))
         }
-    }, [ref, map, zoom, center]);
+    }, [ref, map, zoom, center, options]);
 
     useEffect(() => {
         if (map) {
