@@ -1,6 +1,6 @@
-import Popup from './Popup/Popup'
-import MapContainer from './Map/MapContainer'
 import Header from './Header/Header'
+import MapContainer from './Map/MapContainer'
+import Popup from './Popup/Popup'
 
 export {
     Header,

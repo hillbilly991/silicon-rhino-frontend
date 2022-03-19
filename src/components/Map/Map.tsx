@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect } from 'react'
+import { FC, Children, isValidElement, cloneElement, useRef, useState, useEffect } from 'react'
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   center: google.maps.LatLngLiteral;
@@ -21,7 +21,6 @@ const Map:FC<MapProps> = ({
 
     useEffect(() => {
         if (ref.current && !map) {
-            console.log(window.google.maps, 'maps')
             setMap(new window.google.maps.Map(ref.current, {
                 zoom,
                 center,
@@ -49,6 +48,13 @@ const Map:FC<MapProps> = ({
     return (
         <>
         <div ref={ref} style={style}/>
+        {
+            Children.map(children, (child) => {
+                if (isValidElement(child)) {
+                    return cloneElement(child, { map });
+                }
+            })
+        }
         </>
     );
 };
