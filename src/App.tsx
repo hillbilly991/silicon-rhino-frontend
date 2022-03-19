@@ -3,7 +3,10 @@ import {
   Route
 }from 'react-router'
 import { Home } from './pages'
-import { Header } from './components'
+import {
+  Header,
+  Popup
+} from './components'
 
 function App() {
   return (

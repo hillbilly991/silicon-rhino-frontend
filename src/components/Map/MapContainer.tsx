@@ -25,6 +25,8 @@ const center = {
     lng: -0.10249959
 }
 
+const zoom = 12
+
 const render = (status: Status) => {
   switch (status) {
     case Status.LOADING:
@@ -32,7 +34,7 @@ const render = (status: Status) => {
     case Status.FAILURE:
       return <p>There was an error, please try again</p>;
     case Status.SUCCESS:
-      return <Map style={style} center={center} zoom={8}/>;
+      return <Map style={style} center={center} zoom={zoom}/>;
   }
 };
 
@@ -40,9 +42,6 @@ function MapContainer({
     handleMarkerClick
 }: MapContainerProps) {
     const [events, setEvents] = useState<IEvent[]>([])
-    const handleClick = (event: IEvent) => {
-        console.log(event)
-    }
     const returnIcon = (type: IEvent['type']) => {
         switch(type) {
             case 'BEERS':
@@ -121,7 +120,7 @@ function MapContainer({
         <Wrapper apiKey={process.env['REACT_APP_GOOGLE_MAPS_API_KEY']} render={render}>
             <Map
                 style={style}
-                zoom={12}
+                zoom={zoom}
                 center={center}
             >
                 {

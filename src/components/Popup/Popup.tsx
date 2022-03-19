@@ -2,7 +2,15 @@ import React from 'react'
 
 const Popup = (props:any) => {
     return (
-        <p>popup</p>
+        <div className="popup-wrapper">
+            <div className="popup-container">
+                {
+                    props.showClose &&
+                    <div id="close-popup" onClick={() => props.hidePopup()}></div>
+                }
+                { props.children }
+            </div>
+        </div>
     )
 }
 

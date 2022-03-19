@@ -2,7 +2,7 @@
 
 const Header = (props:any) => {
     return (
-        <nav>
+        <nav className="navbar">
             <ul>
                 <li>
                     <img src="./logo.png" alt="logo"/>

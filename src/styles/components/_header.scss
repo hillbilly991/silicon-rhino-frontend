@@ -1,11 +1,10 @@
 @import '../config/index';
 
-nav {
+.navbar {
     background-color: $gold-metallic;
     padding-right: 14px;
     display: flex;
     height: 65px;
-
     ul {
         display: flex;
         justify-content: space-between;

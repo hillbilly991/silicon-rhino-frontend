@@ -1,3 +1,5 @@
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+
  export interface IEvent {
     id: number;
     time: string;
@@ -25,3 +27,20 @@ export interface IUser {
     name: string;
     avatarUrl: string;
 }
+
+export interface ITextInput {
+    value: string;
+    label: string;
+    onChange: (e:any) => void
+}
+
+export interface ISelectInput {
+    value: string;
+    label: string;
+    onChange: (e:any) => void;
+    options: Array<{
+        id: number;
+        name: string
+    }>
+}
+
