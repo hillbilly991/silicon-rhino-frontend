@@ -1,0 +1,19 @@
+@import '../config/index';
+
+nav {
+    background-color: $gold-metallic;
+    padding-right: 14px;
+    display: flex;
+    height: 65px;
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+    }
+    img {
+        height: 65px;
+        width: 65px;
+    }
+}
