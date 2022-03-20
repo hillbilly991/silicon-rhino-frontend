@@ -1,2 +1,74 @@
+@import '../config/mixins';
+
+#close-popup,
+#close-sidebar
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+
+    &:hover {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        -o-transition: all 0.3s ease-in-out 0s;
+        -ms-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    &:before, &:after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 16px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -1px;
+        background-color: #221F20;
+    }
+
+    &:before {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    &:after {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+}
+
+button {
+    background-color: $copper-penny;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    width: 168px;
+    height: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: auto;
+}
+
 @import './header';
 @import './popup';
+@import './sidebar';

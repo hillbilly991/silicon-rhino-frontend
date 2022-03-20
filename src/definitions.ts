@@ -1,6 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
-
- export interface IEvent {
+export interface IEvent {
     id: number;
     time: string;
     title: string;
@@ -9,7 +7,7 @@ import { DetailedHTMLProps, InputHTMLAttributes } from "react";
     type: 'BEERS' | 'COCKTAILS' | 'COFFEES' | 'MILKSHAKES';
     location: IEventLocation;
     comments: IEventComment[];
-  }
+}
 
 export interface IEventLocation {
     name: string;
@@ -24,6 +22,7 @@ export interface IEventComment {
 }
 
 export interface IUser {
+    id?: number;
     name: string;
     avatarUrl: string;
 }

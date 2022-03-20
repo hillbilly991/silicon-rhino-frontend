@@ -24,6 +24,7 @@ const Map:FC<MapProps> = ({
             setMap(new window.google.maps.Map(ref.current, {
                 zoom,
                 center,
+                disableDefaultUI: true,
                 ...options
             }))
         }

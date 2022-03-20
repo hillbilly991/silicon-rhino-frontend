@@ -124,9 +124,10 @@ function MapContainer({
                 center={center}
             >
                 {
-                    events.map((event: IEvent) => {
+                    events.map((event: IEvent, index: number) => {
                         return (
                             <Marker
+                                key={index}
                                 icon={returnIcon(event.type)}
                                 clickable
                                 position={{
