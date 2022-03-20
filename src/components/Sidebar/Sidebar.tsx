@@ -44,6 +44,7 @@ const Sidebar = ({
                 break;
         }
     }
+
     return (
         <div className={'sidebar-container' + ( showSidebar ? ' open' : ' closed')}>
             <div id="close-sidebar" onClick={() => prepareCloseSidebar()}></div>
@@ -70,7 +71,7 @@ const Sidebar = ({
                                     <>
                                         <div className="comment">
                                             <div className="time-and-user">
-                                                { comment.user.name } at { moment(comment.timestamp).format('hh:mm A') } on { moment(comment.timestamp).format("DD MMM YYYY") }
+                                                { comment.user.name && comment.user.name } at { moment(comment.timestamp).format('hh:mm A') } on { moment(comment.timestamp).format("DD MMM YYYY") }
                                             </div>
                                             <div className="message">
                                                 { comment.message }
@@ -89,10 +90,12 @@ const Sidebar = ({
                                         onChange={setComment}
                                         label={'Leave a comment'}
                                     />
-                                    <button className="submit-comment" onClick={(e) => {
+                                    <button className="submit-comment" onClick={async (e) => {
                                         e.preventDefault()
-                                        if(comment)
+                                        if(comment) {
                                             submitComment(comment)
+                                            setComment('')
+                                        }
                                     }}>
                                         Add comment
                                     </button>

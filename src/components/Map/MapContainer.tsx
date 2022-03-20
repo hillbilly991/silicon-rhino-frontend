@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Map from './Map';
 import Marker from '../Marker/Marker'
@@ -25,7 +24,7 @@ const center = {
     lng: -0.10249959
 }
 
-const zoom = 12
+const zoom = 5
 
 const render = (status: Status) => {
   switch (status) {

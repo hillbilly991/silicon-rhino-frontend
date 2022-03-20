@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { IEvent, IUser } from '../../definitions'
+import { IEvent } from '../../definitions'
 import {
     Header,
     MapContainer,
@@ -72,7 +72,6 @@ function Home() {
             try {
                 const { data } = await axios.get(process.env.REACT_APP_API_URL + '/api/events')
                 const events: Array<IEvent> = data;
-                console.log(events, 'events')
                 setEvents(events)
             } catch (error) {
                 if (axios.isAxiosError(error)) {
@@ -115,7 +114,6 @@ function Home() {
 
     const handleMarkerClicked = (event: IEvent) => {
         const isUserRegisteredToEvent = event.guests.find(guest => guest.id && guest.id.toString() === localStorage.getItem('user'))
-
         setIsRegistered(isUserRegisteredToEvent ? true : false)
         setEventSelected(event)
         setShowSidebar(true)
@@ -149,11 +147,11 @@ function Home() {
 
     const submitComment = async (comment: string) => {
         try {
-            await axios.post(process.env.REACT_APP_API_URL + '/api/event/comments', {
+            await axios.post(process.env.REACT_APP_API_URL + '/api/events/comments', {
                 event_id: eventSelected && eventSelected.id,
-                guest_id: localStorage.getItem('user'),
-                comment,
-                timestamp: moment().toISOString()
+                user_id: localStorage.getItem('user'),
+                message: comment,
+                timestamp: moment().format("YYYY-MM-DD HH:mm:ss")
             })
             getEvent()
         } catch(error) {
@@ -167,7 +165,7 @@ function Home() {
 
     const registerToEvent = async () => {
         try {
-            await axios.post(process.env.REACT_APP_API_URL + '/api/event/register', {
+            await axios.post(process.env.REACT_APP_API_URL + '/api/events/register', {
                 event_id: eventSelected && eventSelected.id,
                 guest_id: localStorage.getItem('user'),
             })
@@ -190,7 +188,7 @@ function Home() {
             const month =  new Date(date).getMonth()
             const day =  new Date(date).getDate()
             const timeStamp = moment({ year: year, month :month, day :day, hour: timeOptionSelected &&timeOptionSelected.hour, minute: timeOptionSelected && timeOptionSelected.minute}).format("YYYY-MM-DD HH:mm:ss")
-            console.log(localStorage.getItem('user'), 'user id')
+
             await axios.post(process.env.REACT_APP_API_URL + '/api/events', {
                 creator_id: localStorage.getItem('user'),
                 location_id: parseInt(location),
