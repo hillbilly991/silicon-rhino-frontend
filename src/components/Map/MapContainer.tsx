@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Map from './Map';
 import Marker from '../Marker/Marker'
-import axios from "axios";
 import { IEvent } from '../../definitions'
 
 declare var process : {
@@ -108,7 +107,7 @@ function MapContainer({
                 center={center}
             >
                 {
-                    events.map((event: IEvent, index: number) => {
+                    events && events.map((event: IEvent, index: number) => {
                         return (
                             <Marker
                                 key={index}

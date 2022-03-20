@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { IEvent } from '../../definitions'
+import { IEvent, IUser } from '../../definitions'
 import {
     Header,
     MapContainer,
@@ -14,13 +14,19 @@ import {
 const timeOptions = [
     {
         id: 1,
-        text: '19:00'
+        text: '19:00',
+        hour: 19,
+        minute: 0
     }, {
         id: 2,
-        text: '19:30'
+        text: '19:30',
+        hour: 19,
+        minute: 30
     }, {
         id: 3,
-        text: '20:00'
+        text: '20:00',
+        hour: 20,
+        minute: 0
     }
 ]
 
@@ -40,6 +46,10 @@ const drinkTypes = [{
 
 function Home() {
     const [events, setEvents] = useState<IEvent[]>([])
+    const [users, setUsers] = useState<Array<{
+        id: string | number,
+        name: string
+    }>>([])
     const [user, setUser] = useState<string>('1')
     const [eventSelected, setEventSelected] = useState<IEvent | null >(null)
     const [showLoginPopup, setShowLoginPopup] = useState<boolean>(true)
@@ -47,7 +57,7 @@ function Home() {
     const [isRegistered, setIsRegistered] = useState<boolean>(false)
     const [showCreateEventPopup, setShowCreateEventPopup] = useState<boolean>(false)
     const [locations, setLocations] = useState<Array<{
-        id: string;
+        id: string | number;
         name: string;
     }>>([])
     const [title, setTitle] = useState<string>('')
@@ -60,8 +70,9 @@ function Home() {
         localStorage.clear()
         async function fetchEvents() {
             try {
-                const { data } = await axios.get('https://mock-api.drinks.test.siliconrhino.io/events')
+                const { data } = await axios.get(process.env.REACT_APP_API_URL + '/api/events')
                 const events: Array<IEvent> = data;
+                console.log(events, 'events')
                 setEvents(events)
             } catch (error) {
                 if (axios.isAxiosError(error)) {
@@ -71,7 +82,24 @@ function Home() {
                 }
             }
         }
+        async function fetchUsers() {
+            try {
+                const { data } = await axios.get(process.env.REACT_APP_API_URL + '/api/users')
+                const users:Array<{
+                    id: number,
+                    name: string
+                }> = data
+                setUsers(users)
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error(error.message, 'axios error')
+                } else {
+                    console.error(error, 'another error')
+                }
+            }
+        }
 
+        fetchUsers()
         fetchEvents()
     }, [])
 
@@ -95,7 +123,7 @@ function Home() {
 
     const getLocations = async () => {
         try {
-            const { data } = await axios.get(process.env.REACT_APP_API_URL + '/locations')
+            const { data } = await axios.get(process.env.REACT_APP_API_URL + '/api/locations')
             setLocations(data)
         } catch(error) {
             if (axios.isAxiosError(error)) {
@@ -108,7 +136,7 @@ function Home() {
 
     const getEvent = async () => {
         try {
-            const { data } = await axios.get(process.env.REACT_APP_API_URL + `/events/${eventSelected && eventSelected.id}`)
+            const { data } = await axios.get(process.env.REACT_APP_API_URL + `/api/events/${eventSelected && eventSelected.id}`)
             setEventSelected(data)
         } catch(error) {
             if (axios.isAxiosError(error)) {
@@ -121,7 +149,7 @@ function Home() {
 
     const submitComment = async (comment: string) => {
         try {
-            await axios.post(process.env.REACT_APP_API_URL + '/event-guests/comments', {
+            await axios.post(process.env.REACT_APP_API_URL + '/api/event/comments', {
                 event_id: eventSelected && eventSelected.id,
                 guest_id: localStorage.getItem('user'),
                 comment,
@@ -139,7 +167,7 @@ function Home() {
 
     const registerToEvent = async () => {
         try {
-            await axios.post(process.env.REACT_APP_API_URL + '/event-guests', {
+            await axios.post(process.env.REACT_APP_API_URL + '/api/event/register', {
                 event_id: eventSelected && eventSelected.id,
                 guest_id: localStorage.getItem('user'),
             })
@@ -157,14 +185,19 @@ function Home() {
     const createEvent = async () => {
         try {
             const type = drinkTypes.find(drinkTypeInArray => drinkTypeInArray.id.toString() === drinkType)
-            const { data } = await axios.post(process.env.REACT_APP_API_URL + '/events', {
+            const timeOptionSelected:any = timeOptions.find(timeOption => timeOption.id === parseInt(time))
+            const year = new Date(date).getFullYear()
+            const month =  new Date(date).getMonth()
+            const day =  new Date(date).getDate()
+            const timeStamp = moment({ year: year, month :month, day :day, hour: timeOptionSelected &&timeOptionSelected.hour, minute: timeOptionSelected && timeOptionSelected.minute}).format("YYYY-MM-DD HH:mm:ss")
+            console.log(localStorage.getItem('user'), 'user id')
+            await axios.post(process.env.REACT_APP_API_URL + '/api/events', {
                 creator_id: localStorage.getItem('user'),
                 location_id: parseInt(location),
                 type: type ? type.text : 'BEERS',
                 title: title,
-                timestamp: moment(`${date} ${time}`).unix()
+                time: timeStamp
             })
-            console.log(data)
             setShowCreateEventPopup(false)
         } catch(error) {
             if (axios.isAxiosError(error)) {
@@ -199,13 +232,7 @@ function Home() {
 
                     <div className="popup-fields">
                         <SelectInput
-                            options={[{
-                                id: 1,
-                                name: 'Tom Hill'
-                            }, {
-                                id: 2,
-                                name: 'Bobby Brown'
-                            }]}
+                            options={users}
                             value={user}
                             label="Who are you?"
                             onChange={setUser}
