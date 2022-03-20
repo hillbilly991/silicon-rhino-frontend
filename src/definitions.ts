@@ -10,6 +10,7 @@ export interface IEvent {
 }
 
 export interface IEventLocation {
+    id?: number;
     name: string;
     latitude: number;
     longitude: number;
@@ -27,9 +28,10 @@ export interface IUser {
     avatarUrl: string;
 }
 
-export interface ITextInput {
+export interface IInput {
     value: string;
     label: string;
+    type?: 'date' | 'text' | 'number'
     onChange: (e:any) => void
 }
 
@@ -38,8 +40,9 @@ export interface ISelectInput {
     label: string;
     onChange: (e:any) => void;
     options: Array<{
-        id: number;
-        name: string
+        id: number | string;
+        name?: string;
+        text?: string;
     }>
 }
 

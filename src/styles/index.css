@@ -83,6 +83,10 @@ button {
           flex-grow: 1;
 }
 
+.navbar li {
+  cursor: pointer;
+}
+
 .navbar img {
   height: 65px;
   width: 65px;
@@ -141,6 +145,11 @@ button {
   margin-bottom: 28px;
 }
 
+.popup-wrapper .popup-fields {
+  width: 100%;
+  margin-bottom: 36px;
+}
+
 .popup-wrapper .form-input {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -150,6 +159,7 @@ button {
       -ms-flex-direction: column;
           flex-direction: column;
   width: 100%;
+  margin-bottom: 12px;
 }
 
 .popup-wrapper .form-inputs {

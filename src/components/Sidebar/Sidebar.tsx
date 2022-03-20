@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { IEvent } from '../../definitions'
-import { TextInput } from '../index';
+import { Input } from '../index';
 import moment from 'moment'
 
 const Sidebar = ({
@@ -84,7 +84,7 @@ const Sidebar = ({
                             {
                                 isRegistered ?
                                 <>
-                                    <TextInput
+                                    <Input
                                         value={comment}
                                         onChange={setComment}
                                         label={'Leave a comment'}

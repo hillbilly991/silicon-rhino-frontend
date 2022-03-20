@@ -7,7 +7,7 @@ const Header = (props:any) => {
                 <li>
                     <img src="./logo.png" alt="logo"/>
                 </li>
-                <li>
+                <li onClick={() => props.handleCreateEventClicked()}>
                     Create Event
                 </li>
             </ul>

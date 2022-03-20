@@ -11,6 +11,9 @@
         align-items: center;
         flex-grow: 1;
     }
+    li {
+        cursor: pointer;
+    }
     img {
         height: 65px;
         width: 65px;

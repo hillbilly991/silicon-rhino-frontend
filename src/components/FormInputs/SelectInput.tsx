@@ -10,10 +10,11 @@ const SelectInput:FC<ISelectInput> = ({ onChange, label, value, options }) => {
             <select value={value} onChange={(e) => onChange(e.target.value)}>
                 {
                     options.map((option: {
-                        id: number;
-                        name: string;
+                        id: number | string;
+                        name?: string;
+                        text?: string;
                     }) => (
-                        <option value={option.id}>{option.name}</option>
+                        <option value={option.id.toString()}>{option.text || option.name}</option>
                     ))
                 }
             </select>
