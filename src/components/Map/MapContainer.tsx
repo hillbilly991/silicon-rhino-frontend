@@ -12,7 +12,8 @@ declare var process : {
 }
 
 interface MapContainerProps {
-    handleMarkerClick: (e: IEvent) => void
+    events: IEvent[];
+    handleMarkerClick: (e: IEvent) => void;
 }
 
 const style = {
@@ -39,9 +40,9 @@ const render = (status: Status) => {
 };
 
 function MapContainer({
+    events,
     handleMarkerClick
 }: MapContainerProps) {
-    const [events, setEvents] = useState<IEvent[]>([])
     const returnIcon = (type: IEvent['type']) => {
         switch(type) {
             case 'BEERS':
@@ -98,24 +99,7 @@ function MapContainer({
                 break;
         }
     }
-    useEffect(() => {
-        async function fetchEvents() {
-            try {
-                const { data } = await axios.get('https://mock-api.drinks.test.siliconrhino.io/events')
-                const events: Array<IEvent> = data;
-                setEvents(events)
-            } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    console.error(error, 'axios error')
-                } else {
-                    console.error(error, 'another error')
-                }
-            }
-        }
 
-        fetchEvents()
-
-    }, [])
     return (
         <Wrapper apiKey={process.env['REACT_APP_GOOGLE_MAPS_API_KEY']} render={render}>
             <Map

@@ -38,7 +38,8 @@ const drinkTypes = [{
     text: 'MILKSHAKES'
 }]
 
-function Home(props: any) {
+function Home() {
+    const [events, setEvents] = useState<IEvent[]>([])
     const [user, setUser] = useState<string>('1')
     const [eventSelected, setEventSelected] = useState<IEvent | null >(null)
     const [showLoginPopup, setShowLoginPopup] = useState<boolean>(true)
@@ -57,6 +58,21 @@ function Home(props: any) {
 
     useEffect(() => {
         localStorage.clear()
+        async function fetchEvents() {
+            try {
+                const { data } = await axios.get('https://mock-api.drinks.test.siliconrhino.io/events')
+                const events: Array<IEvent> = data;
+                setEvents(events)
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error(error, 'axios error')
+                } else {
+                    console.error(error, 'another error')
+                }
+            }
+        }
+
+        fetchEvents()
     }, [])
 
     const loginUser = () => {
@@ -171,6 +187,7 @@ function Home(props: any) {
         />
 
             <MapContainer
+                events={events}
                 handleMarkerClick={handleMarkerClicked}
             />
             {

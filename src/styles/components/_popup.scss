@@ -41,34 +41,4 @@
         width: 100%;
         margin-bottom: 36px;
     }
-
-    .form-input {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-bottom: 12px;
-    }
-
-    .form-inputs {
-        width: 100%;
-
-        .form-input {
-            width: 100%;
-        }
-    }
-
-    label {
-        font-size: 24px;
-        margin-bottom: 8px;
-    }
-
-    select,
-    input {
-        border: 1px solid $ups-brown;
-        outline: none;
-        padding: 4px;
-        height: 41px;
-        font-size: 16px;
-        border-radius: 5px;
-    }
 }

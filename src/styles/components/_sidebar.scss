@@ -7,19 +7,28 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 100vw;
+    right: -100vw;
     display: flex;
     flex-direction: column;
     overflow: auto;
 
+    @include tablet-portrait {
+        right: -462px;
+        width: 462px;
+    }
+
     &.open {
-        left: 0;
-        transition: left 0.3s ease-in;
+        right: 0;
+        transition: right 0.3s ease-in;
     }
 
     &.closed {
-        left: 100vw;
-        transition: left 0.3s ease-out;
+        right: -100vw;
+        transition: right 0.3s ease-out;
+
+         @include tablet-portrait {
+            right: -462px;
+        }
     }
 
     img {
@@ -27,12 +36,18 @@
         max-width: 100vw;
         height: 375px;
         object-fit: cover;
+
+        @include tablet-portrait {
+            width: 462px;
+            max-width: 462px;
+        }
     }
 
     .sidebar-content {
         padding: 26px 24px 36px;
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
     }
 
     h1 {
@@ -56,6 +71,7 @@
     .comments {
         display: flex;
         flex-direction: column;
+        margin-bottom: 26px;
 
         .comment {
             &:not(:last-of-type) {
@@ -79,7 +95,10 @@
     .sidebar-footer {
         display: flex;
         flex-direction: column;
-        margin-top: 26px;
+
+        @include tablet-portrait {
+            margin-top: auto;
+        }
     }
 
     button {
